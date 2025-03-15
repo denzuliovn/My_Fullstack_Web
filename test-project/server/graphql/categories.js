@@ -18,26 +18,26 @@ export const typeDef = `
       createCategory(input: CategoryInput!): Category
       updateCategory(id: ID!, input: CategoryInput!): Category
     }
-`;
+`
 
 export const resolvers = {
   Query: {
     categories: async (parent, args, context, info) => {
-      return await context.db.categories.getAll();
+      return await context.db.categories.getAll()
     },
     category: async (parent, args, context, info) => {
-      return await context.db.categories.findById(args.id);
+      return await context.db.categories.findById(args.id)
     },
   },
   Mutation: {
     deleteCategory: async (parent, args, context, info) => {
-      return context.db.categories.deleteById(args.id);
+      return context.db.categories.deleteById(args.id)
     },
     createCategory: async (parent, args, context, info) => {
-      return await context.db.categories.create(args.input);
+      return await context.db.categories.create(args.input)
     },
     updateCategory: async (parent, args, context, info) => {
-      return context.db.categories.updateById(args.id, args.input);
+      return context.db.categories.updateById(args.id, args.input)
     },
   },
-};
+}

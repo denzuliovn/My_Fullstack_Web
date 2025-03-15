@@ -53,7 +53,7 @@ const Category = () => {
       {/* Nút Delete */}
       <button
         onClick={handleDelete}
-        style={{ background: "red", color: "white", marginRight: "10px"  }}
+        style={{ background: "red", color: "white", marginRight: "10px" }}
       >
         Delete
       </button>
