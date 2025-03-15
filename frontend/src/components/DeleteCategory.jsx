@@ -2,69 +2,58 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { CATEGORY_BY_ID, DELETE_BY_ID } from "../graphql/categories.js";
 
-// Component để xóa một danh mục
 const DeleteCategory = () => {
-  const { id } = useParams(); // Lấy ID từ URL
-  const navigate = useNavigate(); // Hook để điều hướng giữa các trang
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  // Truy vấn GraphQL để lấy thông tin danh mục theo ID
   const { data, loading, error } = useQuery(CATEGORY_BY_ID, {
-    variables: { id }, // Truyền ID vào truy vấn
+    variables: { id },
   });
 
-  // Mutation để xóa danh mục theo ID
   const [deleteCategory] = useMutation(DELETE_BY_ID);
 
-  // Hàm xử lý xóa danh mục
   const handleDelete = async () => {
-    console.log("HandleDelete", id); // Kiểm tra ID có hợp lệ không
     if (window.confirm("Are you sure you want to delete this category?")) {
       try {
-        await deleteCategory({
-          variables: { id },
-        });
-
-        console.log("Category deleted successfully");
-
-        // Sử dụng setTimeout để đảm bảo navigate và reload hoạt động đúng
+        await deleteCategory({ variables: { id } });
         setTimeout(() => {
           navigate("/");
           window.location.reload();
-        }, 500); // Đợi 0.5 giây để tránh xung đột giữa navigate và reload
+        }, 500);
       } catch (err) {
-        console.error("Error deleting category:", err); // In lỗi chi tiết
+        console.error("Error deleting category:", err);
       }
     }
   };
 
-  // Kiểm tra trạng thái tải dữ liệu
-  if (loading) return "Loading..."; // Hiển thị "Loading..." nếu đang tải dữ liệu
-  if (error) return <pre>{error.message}</pre>; // Hiển thị lỗi nếu có
+  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
+  if (error) return <pre className="text-red-500">{error.message}</pre>;
 
   return (
-    <div>
-      {/* Hiển thị thông tin danh mục */}
-      <p>
-        <strong>ID:</strong> {data.category._id}
-      </p>
-      <p>
-        <strong>Name:</strong> {data.category.name}
-      </p>
-
-      {/* Nút Delete với sự kiện onClick gọi handleDelete */}
-      <button
-        onClick={handleDelete}
-        style={{ background: "red", color: "white", marginRight: "10px" }}
-      >
-        Delete
-      </button>
-
-      {/* Link đến trang chỉnh sửa danh mục */}
-      <Link to={`/category/edit/${id}`}>
-        <button style={{ background: "blue", color: "white" }}>Edit</button>
-      </Link>
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="bg-white shadow-lg rounded-lg p-6 w-96 text-center">
+        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Category Details</h2>
+        <p className="text-gray-600"><strong>ID:</strong> {data.category._id}</p>
+        <p className="text-gray-600 mb-4"><strong>Name:</strong> {data.category.name}</p>
+        
+        <div className="flex justify-between">
+          <button
+            onClick={handleDelete}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
+          >
+            Delete
+          </button>
+          <Link to={`/category/edit/${id}`}>
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
+            >
+              Edit
+            </button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default DeleteCategory; // Xuất component để sử dụng trong ứng dụng
+export default DeleteCategory;

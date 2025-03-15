@@ -1,11 +1,15 @@
 export const typeDef = `
     type Category {
         _id: ID!
-        name: String! 
+        name: String!
+        price: Float!
+        description: String
     } 
 
     input CategoryInput {
-      name: String!
+        name: String!
+        price: Float!
+        description: String
     }
 
     extend type Query {
@@ -14,9 +18,9 @@ export const typeDef = `
     }
 
     extend type Mutation {
-      deleteCategory(id: ID!): Boolean
-      createCategory(input: CategoryInput!): Category
-      updateCategory(id: ID!, input: CategoryInput!): Category
+        deleteCategory(id: ID!): Boolean
+        createCategory(input: CategoryInput!): Category
+        updateCategory(id: ID!, input: CategoryInput!): Category
     }
 `
 
