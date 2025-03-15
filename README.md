@@ -1,6 +1,8 @@
 --------------------------------------
 /// RUN WEB
 
+npm install
+
 /FullStack/Frontend
 
 npm install
