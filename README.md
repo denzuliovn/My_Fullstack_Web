@@ -51,5 +51,5 @@ docker start db
 ---
 
 ## 📌 Author
-Developed by **[Your Name]**
+Developed by **Denzulio Tran**
 
