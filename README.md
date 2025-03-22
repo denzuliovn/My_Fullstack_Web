@@ -2,7 +2,7 @@
 
 ## 📌 Project Overview
 This is a full-stack web application built with:
-- **Frontend**: Vite, TailwindCSS, ShadCN/UI
+- **Frontend**: React, Vite, TailwindCSS, ShadCN/UI
 - **Backend**: Node.js, GraphQL (using GraphQL Yoga)
 - **Database**: MongoDB (Docker)
 
