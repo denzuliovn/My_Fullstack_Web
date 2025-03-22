@@ -25,13 +25,13 @@ const Upload = () => {
         query: `mutation ImageUpload($file: File!) {
               upload(file: $file)
         }`,
-        variables: { file: null },
+        variables: { file: null},
       }),
       map: JSON.stringify({
         0: ["variables.file"],
       }),
     };
-
+    
     // Chuẩn bị nội dung của form
     const requestBody = new FormData();
     for (const name in data) {
@@ -42,13 +42,13 @@ const Upload = () => {
       method: "POST",
       body: requestBody,
     };
-
+    
     // Thực hiện upload vào endpoint
     const response = await fetch(
       "https://urban-space-disco-r9gxgw544wwhr67-4000.app.github.dev/",
       request
     );
-
+    
     // Xử lí kết quả trả về
     const responseBody = await response.text();
     const result = JSON.parse(responseBody);

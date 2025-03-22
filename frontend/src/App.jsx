@@ -7,6 +7,7 @@ import Nopage from "./pages/Nopage";
 import DeleteCategory from "./components/DeleteCategory";
 import CategoryEdit from "./components/CategoryEdit";
 import CreateCategory from "./components/CreateCategory";
+import Upload from "./components/Upload";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/Category/:id" element={<Category />} />
         <Route path="/Category/:id/delete" element={<DeleteCategory />} />
         <Route path="/Category/edit/:id" element={<CategoryEdit />} />
+        <Route path="/upload" element={<Upload />}/>
         <Route path="*" element={<Nopage />} />
       </Routes>
     </BrowserRouter>
