@@ -1,6 +1,6 @@
 import { createSchema } from 'graphql-yoga'
 import _ from 'lodash'
-
+import { typeDef as upload, resolvers as uploadResolvers } from './upload.js'
 import { typeDef as hello, resolvers as helloResolvers } from './hello.js'
 import { typeDef as salute, resolvers as saluteResolvers } from './salute.js'
 import {
@@ -21,12 +21,13 @@ const query = `
     _emptyAction: String
   }  
 `
-const typeDefs = [query, hello, salute, categories, login]
+const typeDefs = [query, hello, salute, categories, login, upload]
 const resolvers = _.merge(
   helloResolvers,
   saluteResolvers,
   categoriesResolvers,
   loginResolvers,
+  uploadResolvers,
 )
 
 export const schema = createSchema({

@@ -1,9 +1,18 @@
-import { createServer } from "node:http";
 import { createYoga } from "graphql-yoga";
 import { schema } from "./graphql/schema.js";
 import { useGraphQLMiddleware } from "@envelop/graphql-middleware";
 import { permissions } from "./permissions.js";
 import { db } from "./config.js";
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import { v4 as uuidv4 } from 'uuid';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -40,9 +49,26 @@ const yoga = createYoga({
     };
   },
 });
-const server = createServer(yoga);
+
+const app = express();
+app.get("/img/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const pathDir = path.join(__dirname, "/img/" + filename);
+
+  // TODO: kiểm tra file tồn tại hay không
+  res.sendFile(pathDir);
+});
+
+app.use(yoga.graphqlEndpoint, yoga);
+//const server = createServer(yoga);
 
 const PORT = 4000; // process.env.PORT
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.info(`Server is running on http://localhost:${PORT}`);
 });
+
+
+// curl localhost:4000/ \
+//   -F operations='{ "query": "mutation ($file: File!) { upload(file: $file) }", "variables": { "file": null } }' \
+//   -F map='{ "0": ["variables.file"] }' \
+//   -F 0=@cat.png
