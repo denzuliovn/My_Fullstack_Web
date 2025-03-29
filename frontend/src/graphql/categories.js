@@ -53,3 +53,15 @@ export const CREATE_CATEGORY = gql`
     }
   }
 `;
+
+export const LOGIN_MUTATION = gql`
+  mutation Login($input: LoginInput!) {
+    login(input: $input) {
+      success
+      message
+      data {
+        jwt
+      }
+    }
+  }
+`;

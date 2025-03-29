@@ -1,14 +1,16 @@
+// src/components/Category.jsx
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { CATEGORY_BY_ID, DELETE_BY_ID } from "../graphql/categories.js";
 import "tailwindcss";
+import { useContext } from "react";
+import { AuthContext } from "../AuthContext/AuthContext";
 
 const Category = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, loading, error } = useQuery(CATEGORY_BY_ID, {
-    variables: { id },
-  });
+  const { data, loading, error } = useQuery(CATEGORY_BY_ID, { variables: { id } });
+  const { user } = useContext(AuthContext);
 
   const [deleteCategory] = useMutation(DELETE_BY_ID);
 
@@ -48,17 +50,21 @@ const Category = () => {
         </p>
 
         <div className="flex justify-center gap-6">
-          <Link to={`/Category/edit/${id}`}>
-            <button className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition">
-              Edit
-            </button>
-          </Link>
-          <button
-            onClick={handleDelete}
-            className="px-6 py-3 bg-red-600 text-white text-lg font-semibold rounded-lg hover:bg-red-700 transition"
-          >
-            Delete
-          </button>
+          {user?.role === "admin" && (
+            <>
+              <Link to={`/Category/edit/${id}`}>
+                <button className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition">
+                  Edit
+                </button>
+              </Link>
+              <button
+                onClick={handleDelete}
+                className="px-6 py-3 bg-red-600 text-white text-lg font-semibold rounded-lg hover:bg-red-700 transition"
+              >
+                Delete
+              </button>
+            </>
+          )}
           <Link to={`/`}>
             <button className="px-6 py-3 bg-gray-700 text-white text-lg font-semibold rounded-lg hover:bg-gray-900 transition">
               Back
