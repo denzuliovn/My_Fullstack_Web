@@ -4,12 +4,14 @@ export const typeDef = `
         name: String!
         price: Float!
         description: String
+        image: String
     } 
 
     input CategoryInput {
         name: String!
         price: Float!
         description: String
+        image: String
     }
 
     extend type Query {

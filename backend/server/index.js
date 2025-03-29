@@ -67,8 +67,3 @@ app.listen(PORT, () => {
   console.info(`Server is running on http://localhost:${PORT}`);
 });
 
-
-// curl localhost:4000/ \
-//   -F operations='{ "query": "mutation ($file: File!) { upload(file: $file) }", "variables": { "file": null } }' \
-//   -F map='{ "0": ["variables.file"] }' \
-//   -F 0=@cat.png

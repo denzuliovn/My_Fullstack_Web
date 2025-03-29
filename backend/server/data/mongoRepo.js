@@ -11,6 +11,7 @@ const db = {
         name: name,
         price: price,
         description: description,
+        image: image,
       })
       return created
     },
@@ -26,12 +27,12 @@ const db = {
       }
       return null
     },
-    updateById: async (_id, { name, price, description }) => {
+    updateById: async (_id, { name, price, description, image }) => {
       var item = await Category.findById(_id)
       if (item) {
         item = await Category.findOneAndUpdate(
           { _id: _id },
-          { name: name, price: price, description: description },
+          { name: name, price: price, description: description, image: image },
           { new: true },
         )
         return item

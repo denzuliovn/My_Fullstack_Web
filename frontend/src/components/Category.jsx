@@ -7,15 +7,12 @@ const Category = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, loading, error } = useQuery(CATEGORY_BY_ID, {
-    variables: {
-      id,
-    },
+    variables: { id },
   });
 
   const [deleteCategory] = useMutation(DELETE_BY_ID);
 
   const handleDelete = async () => {
-    console.log("Handledelete");
     if (window.confirm("Are you sure you want to delete this category?")) {
       await deleteCategory({ variables: { id } });
       navigate("/");
@@ -23,40 +20,51 @@ const Category = () => {
     }
   };
 
-  if (loading) return "Loading...";
-  if (error) return <pre>{error.message}</pre>;
+  if (loading) return <p className="text-center text-2xl font-semibold">Loading...</p>;
+  if (error) return <pre className="text-red-500 text-center">{error.message}</pre>;
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-xl font-semibold mb-4">Service Details</h1>
-      <p className="text-gray-700">
-        <strong>ID:</strong> {data.category._id}
-      </p>
-      <p className="text-gray-700">
-        <strong>Name:</strong> {data.category.name}
-      </p>
-      <p className="text-gray-700">
-        <strong>Price:</strong> {data.category.price}
-      </p>
-      <p className="text-gray-700">
-        <strong>Description:</strong> {data.category.description}
-      </p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="max-w-2xl w-full p-8 bg-white shadow-2xl rounded-xl text-center transform scale-110">
+        <h1 className="text-4xl font-bold text-gray-800 mb-8">Service Details</h1>
+        {data.category.image && (
+          <img
+            src={`https://urban-space-disco-r9gxgw544wwhr67-4000.app.github.dev/img/${data.category.image}`}
+            alt={data.category.name}
+            className="w-64 h-64 object-cover rounded-lg mx-auto mb-8 shadow-md"
+          />
+        )}
+        <p className="text-xl text-gray-700 mb-4">
+          <strong className="font-semibold">ID:</strong> {data.category._id}
+        </p>
+        <p className="text-xl text-gray-700 mb-4">
+          <strong className="font-semibold">Name:</strong> {data.category.name}
+        </p>
+        <p className="text-xl text-gray-700 mb-4">
+          <strong className="font-semibold">Price:</strong> ${data.category.price}
+        </p>
+        <p className="text-xl text-gray-700 mb-8">
+          <strong className="font-semibold">Description:</strong> {data.category.description}
+        </p>
 
-      <div className="mt-4 flex space-x-2">
-        <Link to={`/Category/edit/${id}`}>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Edit</button>
-        </Link>
-
-        <button
-          onClick={handleDelete}
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
-        >
-          Delete
-        </button>
-
-        <Link to={`/`}>
-          <button className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-900">Back</button>
-        </Link>
+        <div className="flex justify-center gap-6">
+          <Link to={`/Category/edit/${id}`}>
+            <button className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition">
+              Edit
+            </button>
+          </Link>
+          <button
+            onClick={handleDelete}
+            className="px-6 py-3 bg-red-600 text-white text-lg font-semibold rounded-lg hover:bg-red-700 transition"
+          >
+            Delete
+          </button>
+          <Link to={`/`}>
+            <button className="px-6 py-3 bg-gray-700 text-white text-lg font-semibold rounded-lg hover:bg-gray-900 transition">
+              Back
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,14 +1,15 @@
-import mongoose from "mongoose";
-let Schema = mongoose.Schema;
-let String = Schema.Types.String;
+import mongoose from 'mongoose'
+let Schema = mongoose.Schema
+let String = Schema.Types.String
 
 export const CategorySchema = new Schema(
   {
     name: String,
     price: Number,
-    description: String
+    description: String,
+    image: String,
   },
   {
-    collection: "categories",
-  }
-);
+    collection: 'categories',
+  },
+)

@@ -7,6 +7,7 @@ export const CATEGORIES_QUERY = gql`
       name
       price
       description
+      image
     }
   }
 `;
@@ -18,6 +19,7 @@ export const CATEGORY_BY_ID = gql`
       name
       price
       description
+      image
     }
   }
 `;
@@ -35,6 +37,7 @@ export const UPDATE_BY_ID = gql`
       name
       price
       description
+      image
     }
   }
 `;
@@ -46,6 +49,7 @@ export const CREATE_CATEGORY = gql`
       name
       price
       description
+      image
     }
   }
 `;
