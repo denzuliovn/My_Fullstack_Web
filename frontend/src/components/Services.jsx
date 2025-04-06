@@ -35,35 +35,49 @@ const Services = () => {
       setSortBy(field);
       setSortOrder("asc");
     }
-    setPage(1); // Reset to first page when sorting
+    setPage(1);
   };
 
   const handleFilter = () => {
-    setPage(1); // Reset to first page when filtering
+    setPage(1);
     refetch();
   };
 
   const handleSearch = () => {
-    setPage(1); // Reset to first page when searching
+    setPage(1);
     refetch();
   };
 
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(parseInt(e.target.value));
-    setPage(1); // Reset to first page when changing items per page
+    setPage(1);
   };
 
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
   if (error) return <pre className="text-red-500">{error.message}</pre>;
 
-  const { items, totalItems, currentPage, totalPages, itemsPerPage: currentItemsPerPage } = data?.services || {};
+  const {
+    items,
+    totalItems,
+    currentPage,
+    totalPages,
+    itemsPerPage: currentItemsPerPage,
+  } = data?.services || {};
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Nội dung chính */}
       <div className="flex-1 container mx-auto p-6">
         <br />
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Services</h1>
+
+        {/* Nút Create */}
+        <div className="flex justify-end mb-4">
+          <Link to="/Services/create">
+            <Button className="bg-blue-600 text-white hover:bg-blue-700">
+              + Create New Service
+            </Button>
+          </Link>
+        </div>
 
         {/* Search */}
         <div className="mb-4 flex justify-center">
@@ -122,7 +136,7 @@ const Services = () => {
           <p>Total Pages: {totalPages}</p>
         </div>
 
-        {/* Items Per Page Selection */}
+        {/* Items Per Page */}
         <div className="mb-4 flex justify-center">
           <Label htmlFor="itemsPerPage" className="mr-2">Items per page:</Label>
           <select
