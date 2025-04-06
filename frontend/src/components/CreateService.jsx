@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useNavigate, Link } from "react-router-dom";
-import { CREATE_CATEGORY } from "../graphql/categories.js";
+import { CREATE_CATEGORY } from "../graphql/services.js";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-const CreateCategory = () => {
+const CreateService = () => {
   const navigate = useNavigate();
-  const [category, setCategory] = useState({ name: "", price: "", description: "", image: "" });
+  const [service, setService] = useState({ name: "", price: "", description: "", image: "" });
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
 
-  const [createCategory, { loading, error }] = useMutation(CREATE_CATEGORY, {
+  const [createService, { loading, error }] = useMutation(CREATE_CATEGORY, {
     onCompleted: () => {
       navigate("/");
       window.location.reload();
@@ -49,7 +49,7 @@ const CreateCategory = () => {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    if (!category.name.trim() || !category.price.trim() || !category.description.trim()) {
+    if (!service.name.trim() || !service.price.trim() || !service.description.trim()) {
       alert("All fields are required!");
       return;
     }
@@ -60,15 +60,15 @@ const CreateCategory = () => {
     }
 
     try {
-      await createCategory({
-        variables: { input: { ...category, image: imageName } },
+      await createService({
+        variables: { input: { ...service, image: imageName } },
       });
       setTimeout(() => {
         navigate("/");
         window.location.reload();
       }, 500);
     } catch (err) {
-      console.error("Error creating category:", err);
+      console.error("Error creating service:", err);
     }
   };
 
@@ -82,8 +82,8 @@ const CreateCategory = () => {
             <Input
               type="text"
               id="name"
-              value={category.name}
-              onChange={(e) => setCategory({ ...category, name: e.target.value })}
+              value={service.name}
+              onChange={(e) => setService({ ...service, name: e.target.value })}
             />
           </div>
           <div>
@@ -91,16 +91,16 @@ const CreateCategory = () => {
             <Input
               type="text"
               id="price"
-              value={category.price}
-              onChange={(e) => setCategory({ ...category, price: e.target.value })}
+              value={service.price}
+              onChange={(e) => setService({ ...service, price: e.target.value })}
             />
           </div>
           <div>
             <Label htmlFor="description" className="block text-gray-600 mb-1">Description:</Label>
             <textarea
               id="description"
-              value={category.description}
-              onChange={(e) => setCategory({ ...category, description: e.target.value })}
+              value={service.description}
+              onChange={(e) => setService({ ...service, description: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             ></textarea>
           </div>
@@ -122,4 +122,4 @@ const CreateCategory = () => {
   );
 };
 
-export default CreateCategory;
+export default CreateService;

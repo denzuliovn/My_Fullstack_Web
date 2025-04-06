@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
-import { CATEGORY_BY_ID, UPDATE_BY_ID } from "../graphql/categories.js";
+import { CATEGORY_BY_ID, UPDATE_BY_ID } from "../graphql/services.js";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-const CategoryEdit = () => {
+const ServiceEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -14,22 +14,22 @@ const CategoryEdit = () => {
     variables: { id },
   });
 
-  const [updateCategory] = useMutation(UPDATE_BY_ID);
+  const [updateService] = useMutation(UPDATE_BY_ID);
 
-  const [category, setCategory] = useState({ name: "", price: "", description: "", image: "" });
+  const [service, setService] = useState({ name: "", price: "", description: "", image: "" });
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
 
   useEffect(() => {
-    if (data?.category) {
-      setCategory({
-        name: data.category.name || "",
-        price: data.category.price || "",
-        description: data.category.description || "",
-        image: data.category.image || "",
+    if (data?.service) {
+      setService({
+        name: data.service.name || "",
+        price: data.service.price || "",
+        description: data.service.description || "",
+        image: data.service.image || "",
       });
-      if (data.category.image) {
-        setPreview(`https://urban-space-disco-r9gxgw544wwhr67-4000.app.github.dev/img/${data.category.image}`);
+      if (data.service.image) {
+        setPreview(`https://urban-space-disco-r9gxgw544wwhr67-4000.app.github.dev/img/${data.service.image}`);
       }
     }
   }, [data]);
@@ -63,23 +63,23 @@ const CategoryEdit = () => {
   };
 
   const handleUpdate = async () => {
-    let imageName = category.image;
+    let imageName = service.image;
     if (file) {
       imageName = await handleUploadImage();
     }
 
-    const input = { ...category, image: imageName };
+    const input = { ...service, image: imageName };
     try {
-      await updateCategory({ variables: { id, input } });
+      await updateService({ variables: { id, input } });
       navigate("/");
       window.location.reload();
     } catch (err) {
-      console.error("Error updating category:", err);
+      console.error("Error updating service:", err);
     }
   };
 
   const handleCancel = () => {
-    navigate(`/category/${id}`);
+    navigate(`/service/${id}`);
   };
 
   if (loading) return "Loading...";
@@ -95,8 +95,8 @@ const CategoryEdit = () => {
             <Input
               type="text"
               id="name"
-              value={category.name}
-              onChange={(e) => setCategory({ ...category, name: e.target.value })}
+              value={service.name}
+              onChange={(e) => setService({ ...service, name: e.target.value })}
             />
           </div>
           <div>
@@ -104,16 +104,16 @@ const CategoryEdit = () => {
             <Input
               type="text"
               id="price"
-              value={category.price}
-              onChange={(e) => setCategory({ ...category, price: e.target.value })}
+              value={service.price}
+              onChange={(e) => setService({ ...service, price: e.target.value })}
             />
           </div>
           <div>
             <Label htmlFor="description" className="block text-gray-600 mb-1">Description:</Label>
             <textarea
               id="description"
-              value={category.description}
-              onChange={(e) => setCategory({ ...category, description: e.target.value })}
+              value={service.description}
+              onChange={(e) => setService({ ...service, description: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             ></textarea>
           </div>
@@ -134,4 +134,4 @@ const CategoryEdit = () => {
   );
 };
 
-export default CategoryEdit;
+export default ServiceEdit;

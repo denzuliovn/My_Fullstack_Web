@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const CATEGORIES_QUERY = gql`
   {
-    categories {
+    services {
       _id
       name
       price
@@ -13,8 +13,8 @@ export const CATEGORIES_QUERY = gql`
 `;
 
 export const CATEGORY_BY_ID = gql`
-  query GetCategoryByID($id: ID!) {
-    category(id: $id) {
+  query GetServiceByID($id: ID!) {
+    service(id: $id) {
       _id
       name
       price
@@ -26,13 +26,13 @@ export const CATEGORY_BY_ID = gql`
 
 export const DELETE_BY_ID = gql`
   mutation deleteByID($id: ID!) {
-    deleteCategory(id: $id)
+    deleteService(id: $id)
   }
 `;
 
 export const UPDATE_BY_ID = gql`
-  mutation updateByID($id: ID!, $input: CategoryInput!) {
-    updateCategory(id: $id, input: $input) {
+  mutation updateByID($id: ID!, $input: ServiceInput!) {
+    updateService(id: $id, input: $input) {
       _id
       name
       price
@@ -43,8 +43,8 @@ export const UPDATE_BY_ID = gql`
 `;
 
 export const CREATE_CATEGORY = gql`
-  mutation CreateCategory($input: CategoryInput!) {
-    createCategory(input: $input) {
+  mutation CreateService($input: ServiceInput!) {
+    createService(input: $input) {
       _id
       name
       price

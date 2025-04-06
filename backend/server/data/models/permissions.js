@@ -13,13 +13,13 @@ const isAdmin = rule()(async (parent, args, ctx) => {
 // Quyền truy cập cho các mutation và query
 export const permissions = shield({
   Query: {
-    categories: allow, // Ai cũng xem được danh sách
-    category: allow,   // Ai cũng xem được chi tiết
+    services: allow, // Ai cũng xem được danh sách
+    service: allow,   // Ai cũng xem được chi tiết
   },
   Mutation: {
-    createCategory: and(isAuthenticated, isAdmin), // Chỉ admin tạo được
-    updateCategory: and(isAuthenticated, isAdmin), // Chỉ admin sửa được
-    deleteCategory: and(isAuthenticated, isAdmin), // Chỉ admin xóa được
+    createService: and(isAuthenticated, isAdmin), // Chỉ admin tạo được
+    updateService: and(isAuthenticated, isAdmin), // Chỉ admin sửa được
+    deleteService: and(isAuthenticated, isAdmin), // Chỉ admin xóa được
     login: allow, // Ai cũng đăng nhập được
     upload: and(isAuthenticated, isAdmin), // Chỉ admin upload ảnh
   },

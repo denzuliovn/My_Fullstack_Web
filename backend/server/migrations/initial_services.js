@@ -1,5 +1,5 @@
 export const up = async (db, client) => {
-    await db.collection("categories").insertMany([
+    await db.collection("services").insertMany([
       {
         name: "Buffet bữa sáng",
         price: 100000,

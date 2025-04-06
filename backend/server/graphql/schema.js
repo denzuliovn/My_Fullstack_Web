@@ -4,9 +4,9 @@ import { typeDef as upload, resolvers as uploadResolvers } from './upload.js'
 import { typeDef as hello, resolvers as helloResolvers } from './hello.js'
 import { typeDef as salute, resolvers as saluteResolvers } from './salute.js'
 import {
-  typeDef as categories,
-  resolvers as categoriesResolvers,
-} from './categories.js'
+  typeDef as services,
+  resolvers as servicesResolvers,
+} from './services.js'
 import {
   typeDef as login,
   resolvers as loginResolvers,
@@ -21,11 +21,11 @@ const query = `
     _emptyAction: String
   }  
 `
-const typeDefs = [query, hello, salute, categories, login, upload]
+const typeDefs = [query, hello, salute, services, login, upload]
 const resolvers = _.merge(
   helloResolvers,
   saluteResolvers,
-  categoriesResolvers,
+  servicesResolvers,
   loginResolvers,
   uploadResolvers,
 )

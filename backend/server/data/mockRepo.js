@@ -1,5 +1,5 @@
 const mockData = {
-  categories: [
+  services: [
     {
       id: 1,
       name: 'Buffet bữa sáng',
@@ -64,34 +64,34 @@ const mockData = {
 }
 
 const db = {
-  categories: {
-    getAll: () => mockData.categories,
-    findById: (id) => mockData.categories.find((item) => item.id == id),
+  services: {
+    getAll: () => mockData.services,
+    findById: (id) => mockData.services.find((item) => item.id == id),
     deleteById: (id) => {
-      const item = mockData.categories.find((item) => item.id == id)
+      const item = mockData.services.find((item) => item.id == id)
       if (item) {
-        _.remove(mockData.categories, (item) => item.id == id)
+        _.remove(mockData.services, (item) => item.id == id)
         return id
       }
       return null
     },
     create: (input) => {
-      const id = mockData.categories.length + 1
+      const id = mockData.services.length + 1
       const item = {
         id: id,
         name: input.name,
       }
-      mockData.categories.push(item)
+      mockData.services.push(item)
       return item
     },
     updateById: (id, input) => {
-      const index = mockData.categories.findIndex((item) => item.id == id)
+      const index = mockData.services.findIndex((item) => item.id == id)
       if (index >= 0) {
         Object.keys(input).map((key) => {
           const value = input[key]
-          mockData.categories[index][key] = value
+          mockData.services[index][key] = value
         })
-        return mockData.categories[index]
+        return mockData.services[index]
       }
       return null
     },

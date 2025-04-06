@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { CATEGORY_BY_ID, DELETE_BY_ID } from "../graphql/categories.js";
+import { CATEGORY_BY_ID, DELETE_BY_ID } from "../graphql/services.js";
 
-const DeleteCategory = () => {
+const DeleteService = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -10,12 +10,12 @@ const DeleteCategory = () => {
     variables: { id },
   });
 
-  const [deleteCategory] = useMutation(DELETE_BY_ID);
+  const [deleteService] = useMutation(DELETE_BY_ID);
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this category?")) {
       try {
-        await deleteCategory({ variables: { id } });
+        await deleteService({ variables: { id } });
         setTimeout(() => {
           navigate("/");
           window.location.reload();
@@ -32,7 +32,7 @@ const DeleteCategory = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-6 w-96 text-center">
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Category Details</h2>
+        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Service Details</h2>
         <p className="text-gray-600"><strong>ID:</strong> {data.category._id}</p>
         <p className="text-gray-600 mb-4"><strong>Name:</strong> {data.category.name}</p>
         
@@ -56,4 +56,4 @@ const DeleteCategory = () => {
   );
 };
 
-export default DeleteCategory;
+export default DeleteService;

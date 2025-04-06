@@ -1,13 +1,13 @@
-import { Category, User } from './models/index.js'
+import { Service, User } from './models/index.js'
 
 const db = {
-  categories: {
+  services: {
     getAll: async () => {
-      const items = await Category.find()
+      const items = await Service.find()
       return items
     },
     create: async ({ name, price, description }) => {
-      const created = await Category.create({
+      const created = await Service.create({
         name: name,
         price: price,
         description: description,
@@ -16,21 +16,21 @@ const db = {
       return created
     },
     findById: async (_id) => {
-      const item = await Category.findById(_id)
+      const item = await Service.findById(_id)
       return item
     },
     deleteById: async (_id) => {
-      const item = await Category.findById(_id)
+      const item = await Service.findById(_id)
       if (item) {
-        await Category.findByIdAndDelete(_id)
+        await Service.findByIdAndDelete(_id)
         return item
       }
       return null
     },
     updateById: async (_id, { name, price, description, image }) => {
-      var item = await Category.findById(_id)
+      var item = await Service.findById(_id)
       if (item) {
-        item = await Category.findOneAndUpdate(
+        item = await Service.findOneAndUpdate(
           { _id: _id },
           { name: name, price: price, description: description, image: image },
           { new: true },
